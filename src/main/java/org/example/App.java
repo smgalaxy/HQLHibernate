@@ -7,6 +7,8 @@ import java.util.Random;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 
+import javax.persistence.Query;
+
 import org.hibernate.service.ServiceRegistry;
 
 
@@ -65,7 +67,7 @@ public class App {
         int value = 60;
         Query query = session.createQuery("select sum(marks) from Student s where s.marks>:value");
         query.setParameter("value",value);
-        Long marks = (Long) query.uniqueResult();
+        Long marks = (Long) ((org.hibernate.query.Query<?>) query).uniqueResult();
         System.out.println(marks);
 
         t.commit();
